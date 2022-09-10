@@ -17,12 +17,14 @@
             <li class="nav-item">
               <router-link class="nav-link" to="/">{{ $t('menu_home') }}</router-link>
             </li>
+
+            <li class="nav-item">
+              <router-link class="nav-link" to="/notes">{{ $t('menu_notes') }}</router-link>
+            </li>
             
-            <template v-if="userRole != 'unconfigured_user'">
-              <li v-if="userRole == 'admin'" class="nav-item">
-                <router-link class="nav-link" to="/users">{{ $t('menu_gebruikers') }}</router-link>
-              </li>
-            </template>
+            <li v-if="userRole == 'admin'" class="nav-item">
+              <router-link class="nav-link" to="/users">{{ $t('menu_gebruikers') }}</router-link>
+            </li>
 
             <li class="nav-item">
               <router-link class="nav-link" to="/account">{{ $t('menu_account') }}</router-link>
