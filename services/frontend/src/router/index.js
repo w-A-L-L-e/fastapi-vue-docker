@@ -15,6 +15,7 @@ import Register from '@/views/users/Register';
 import Notes from '@/views/notes/Notes';
 import EditNote from '@/views/notes/EditNote';
 import Note from '@/views/notes/Note';
+import PageNotFound from '@/views/PageNotFound'
 
 Vue.use(VueRouter);
 
@@ -38,7 +39,7 @@ const routes = [
     path: '/notes',
     name: 'Notes',
     component: Notes,
-    meta: {requiresAuth: true, allowedRoles: ['admin']},
+    meta: {requiresAuth: true},
   },
   {
     path: '/note/:id',
@@ -51,7 +52,7 @@ const routes = [
     path: '/editnote/:id',
     name: 'EditNote',
     component: EditNote,
-    meta: {requiresAuth: true, allowedRoles: ['admin']},
+    meta: {requiresAuth: true},
     props: true,
   },
   {
@@ -68,7 +69,7 @@ const routes = [
   },
   {
     path: '/unconfigured_user',
-    name: 'Account nog niet aktief',
+    name: 'Account not active',
     component: UnconfiguredUser,
     meta: {requiresAuth: true},
   },
@@ -80,13 +81,12 @@ const routes = [
   },
   {
       path: "/:catchAll(.*)",
-      redirect: '/'
-      // catch all redirects to home page, we can also do this and show a 404 error page:
-      // name: "NotFound",
-      // component: PageNotFound,
-      // meta: {
-      //   requiresAuth: false
-      // }
+      // redirect: '/'
+      name: "NotFound",
+      component: PageNotFound,
+      meta: {
+        requiresAuth: false
+      }
   }
 ]
 
