@@ -43,6 +43,10 @@
                 @click="saveRole(user)">
                   {{ $t('user_management_save_btn') }}
               </button>
+              <button class="btn btn-danger btn-sm delete-user-btn"
+                      @click="deleteUser(user)">
+                  Verwijder
+              </button>
             </td>
           </tr>
         </tbody>
@@ -53,6 +57,7 @@
 
 <script>
 import axios from 'axios';
+import { mapActions } from 'vuex';
 
 export default {
   name: 'ManageUsers',
@@ -88,7 +93,7 @@ export default {
     });
   },
   methods: {
-
+    ...mapActions(['deleteUser']),
     errorAlert(msg){
       this.save_error = msg;
       setTimeout(()=>{this.save_error=''}, 3000);
@@ -96,6 +101,10 @@ export default {
     successAlert(msg){
       this.save_success = msg;
       setTimeout(()=>{this.save_success=''}, 3000);
+    },
+
+    async deleteUser(user){
+      await this.deleteUser(user.id);
     },
 
     async saveRole(user){
@@ -136,6 +145,9 @@ export default {
   100% {
     opacity: 1;
   }
+}
+.delete-user-btn {
+  margin-left: 1em;
 }
 </style>
 
