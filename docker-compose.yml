@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+
+  backend:
+    build: ./services/backend
+    ports:
+      - 5000:5000
+    environment:
+      - DATABASE_URL=postgres://admin:admin_password_here@db:5432/vue_notes_dev
+      - SECRET_KEY=0ad15e094fbc6ca5336c818161b7a9563b93c7099f6a0f4cff6cf63b77e1d3e7
+    volumes:
+      - ./services/backend:/app
+    command: uvicorn src.main:app --reload --host 0.0.0.0 --port 5000
+    depends_on:
+      - db
+
+  frontend:
+    build: ./services/frontend
+    volumes:
+      - './services/frontend:/app'
+      - '/app/node_modules'
+    ports:
+      - 8080:8080
+
+  db:
+    image: postgres:14
+    expose:
+      - 5432
+    ports:
+      - "6432:5432"
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin_password_here
+      - POSTGRES_DB=vue_notes_dev
+    volumes:
+      - db_data:/var/lib/postgresql/data/
+
+volumes:
+  db_data:
