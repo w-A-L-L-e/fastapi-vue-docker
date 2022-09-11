@@ -6,8 +6,8 @@ from tortoise.exceptions import DoesNotExist
 
 import src.crud.user_roles as crud
 from src.auth.jwthandler import get_current_user
-#from src.schemas.notes import NoteOutSchema, NoteInSchema, UpdateNote
-from src.schemas.user_roles import UserRoleInSchema, UserRoleOutSchema #, UpdateUserRole 
+# from src.schemas.notes import NoteOutSchema, NoteInSchema, UpdateNote
+from src.schemas.user_roles import UserRoleInSchema, UserRoleOutSchema  # , UpdateUserRole
 from src.schemas.token import Status
 from src.schemas.users import UserOutSchema
 
@@ -56,7 +56,7 @@ async def create_role(
 )
 async def update_role(
     role_id: int,
-    role: UserRoleInSchema, # or we can use UpdateUserRole
+    role: UserRoleInSchema,  # or we can use UpdateUserRole
     current_user: UserOutSchema = Depends(get_current_user),
 ) -> UserRoleOutSchema:
     return await crud.update_role(role_id, role, current_user)

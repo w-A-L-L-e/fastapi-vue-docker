@@ -11,7 +11,7 @@ from tortoise.contrib.fastapi import HTTPNotFoundError
 import src.crud.users as crud
 from src.auth.users import validate_user
 from src.schemas.token import Status
-from src.schemas.users import UserInSchema, UserOutSchema, UserRoleUpdate 
+from src.schemas.users import UserInSchema, UserOutSchema, UserRoleUpdate
 
 from src.auth.jwthandler import (
     create_access_token,
@@ -42,7 +42,7 @@ async def login(user: OAuth2PasswordRequestForm = Depends()):
     user_role = "unconfigured_user"
     if user.role:
         user_role = user.role.role
-    
+
     access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     access_token = create_access_token(
         data={
@@ -113,6 +113,3 @@ async def update_user_role(
     current_user: UserOutSchema = Depends(get_current_user),
 ) -> UserOutSchema:
     return await crud.update_user_role(user_id, user, current_user)
-
-
-

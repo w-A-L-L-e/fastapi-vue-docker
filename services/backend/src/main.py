@@ -7,7 +7,7 @@ from src.database.logging import query_logging
 from fastapi.responses import RedirectResponse
 from src.routes.api import api_router
 
-DEBUG_SQL_QUERIES=True
+DEBUG_SQL_QUERIES = True
 
 app = FastAPI(
     title="Notes API",
@@ -28,16 +28,16 @@ app.include_router(api_router)
 
 # register database ORM tortoise
 register_tortoise(
-    app, 
+    app,
     config=TORTOISE_ORM,
-    generate_schemas=False # schemas are generated with aerich/migrations
+    generate_schemas=False  # schemas are generated with aerich/migrations
 )
 
 if DEBUG_SQL_QUERIES:
-    query_logging() 
+    query_logging()
+
 
 @app.get("/", include_in_schema=False)
 def root_page():
     """ make root path show the API swagger docs """
     return RedirectResponse("/docs")
-

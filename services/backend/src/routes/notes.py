@@ -55,7 +55,7 @@ async def create_note(
 )
 async def update_note(
     note_id: int,
-    note:NoteInSchema,
+    note: NoteInSchema,
     current_user: UserOutSchema = Depends(get_current_user),
 ) -> NoteOutSchema:
     return await crud.update_note(note_id, note, current_user)

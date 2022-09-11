@@ -16,7 +16,7 @@ from src.database.models import Users
 
 SECRET_KEY = os.environ.get("SECRET_KEY")
 ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 60*12 # session for 12hours
+ACCESS_TOKEN_EXPIRE_MINUTES = 60*12  # session for 12hours
 
 
 class OAuth2PasswordBearerCookie(OAuth2):
@@ -29,7 +29,8 @@ class OAuth2PasswordBearerCookie(OAuth2):
     ):
         if not scopes:
             scopes = {}
-        flows = OAuthFlowsModel(password={"tokenUrl": token_url, "scopes": scopes})
+        flows = OAuthFlowsModel(
+            password={"tokenUrl": token_url, "scopes": scopes})
         super().__init__(flows=flows, scheme_name=scheme_name, auto_error=auto_error)
 
     async def __call__(self, request: Request) -> Optional[str]:

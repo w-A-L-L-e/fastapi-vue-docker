@@ -28,7 +28,8 @@ async def update_role(role_id, user_role, current_user) -> UserRoleOutSchema:
     try:
         db_role = await UserRoleOutSchema.from_queryset_single(UserRoles.get(id=role_id))
     except DoesNotExist:
-        raise HTTPException(status_code=404, detail=f"UserRole {role_id} not found")
+        raise HTTPException(
+            status_code=404, detail=f"UserRole {role_id} not found")
 
     # TODO: check if current user is admin!
     # or better yet, put that on the routing filter ...
@@ -49,14 +50,15 @@ async def delete_role(role_id, current_user) -> Status:
     try:
         db_note = await UserRoleOutSchema.from_queryset_single(UserRoles.get(id=role_id))
     except DoesNotExist:
-        raise HTTPException(status_code=404, detail=f"UserRole {role_id} not found")
+        raise HTTPException(
+            status_code=404, detail=f"UserRole {role_id} not found")
 
-    #if db_note.author.id == current_user.id:
+    # if db_note.author.id == current_user.id:
     # if user is not admin:
     # raise HTTPException(status_code=403, detail=f"Not authorized to delete")
 
     deleted_count = await UserRoles.filter(id=role_id).delete()
     if not deleted_count:
-        raise HTTPException(status_code=404, detail=f"UserRole {role_id} not found")
+        raise HTTPException(
+            status_code=404, detail=f"UserRole {role_id} not found")
     return Status(message=f"Deleted user_role {role_id}")
-

@@ -1,4 +1,6 @@
-import logging, sys
+import logging
+import sys
+
 
 def query_logging():
     # debug sql logging
