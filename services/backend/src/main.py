@@ -1,27 +1,21 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from tortoise import Tortoise
 
 from src.database.register import register_tortoise
 from src.database.config import TORTOISE_ORM
 from src.database.logging import query_logging
 from fastapi.responses import RedirectResponse
-
-Tortoise.init_models(["src.database.models"], "models")
-
-# why routes import must be after Tortoise.init_models
-# https://stackoverflow.com/questions/65531387/tortoise-orm-for-python-no-returns-relations-of-entities-pyndantic-fastapi
 from src.routes.api import api_router
 
 DEBUG_SQL_QUERIES=True
 
 app = FastAPI(
-    title="Intake Tool API",
-    description="Backend of the intake tool",
+    title="Notes API",
+    description="Backend of the vue notes application",
     version="alpha 0.1"
 )
 
-
+# add cores headers
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:8080", "http://localhost:8081"],
@@ -33,7 +27,11 @@ app.add_middleware(
 app.include_router(api_router)
 
 # register database ORM tortoise
-register_tortoise(app, config=TORTOISE_ORM, generate_schemas=False)
+register_tortoise(
+    app, 
+    config=TORTOISE_ORM,
+    generate_schemas=False # schemas are generated with aerich/migrations
+)
 
 if DEBUG_SQL_QUERIES:
     query_logging() 

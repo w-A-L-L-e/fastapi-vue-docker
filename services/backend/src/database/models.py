@@ -16,7 +16,7 @@ class Users(models.Model):
 
 class Notes(models.Model):
     id = fields.IntField(pk=True)
-    title = fields.CharField(max_length=225)
+    title = fields.CharField(max_length=225, null=False)
     content = fields.TextField()
     author = fields.ForeignKeyField("models.Users", related_name="note")
     created_at = fields.DatetimeField(auto_now_add=True)

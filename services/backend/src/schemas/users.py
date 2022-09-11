@@ -9,8 +9,7 @@ UserInSchema = pydantic_model_creator(
 )
 UserOutSchema = pydantic_model_creator(
     Users, name="UserOut",
-    exclude=["note", "batch", "password", "created_at", "modified_at"]
-    # Users, name="UserOut", exclude=["password", "created_at", "modified_at"]
+    exclude=["note", "password", "created_at", "modified_at"]
 )
 UserDatabaseSchema = pydantic_model_creator(
     Users, name="User", exclude=["created_at", "modified_at"]

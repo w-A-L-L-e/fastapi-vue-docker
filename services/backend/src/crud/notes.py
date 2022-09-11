@@ -20,7 +20,6 @@ async def create_note(note, current_user) -> NoteOutSchema:
     note_obj = await Notes.create(**note_dict)
     return await NoteOutSchema.from_tortoise_orm(note_obj)
 
-
 async def update_note(note_id, note, current_user) -> NoteOutSchema:
     try:
         db_note = await NoteOutSchema.from_queryset_single(Notes.get(id=note_id))
